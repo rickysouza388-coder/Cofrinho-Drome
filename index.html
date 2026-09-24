@@ -218,5 +218,30 @@
   <button class="fab-btn" id="fabBtn">+</button>
 
   <script src="script.js"></script>
+
+  <!-- MODAL DE EDIÇÃO E ELIMINAÇÃO -->
+  <div id="modalEdit" class="modal-overlay hidden">
+    <div class="modal-card">
+      <h3>Editar Lançamento</h3>
+      
+      <label for="editDesc">Descrição</label>
+      <input type="text" id="editDesc" maxlength="5000">
+      
+      <label for="editAmount">Valor (R$)</label>
+      <input type="number" step="0.01" id="editAmount">
+      
+      <label for="editDate">Data</label>
+      <input type="date" id="editDate">
+      
+      <div class="modal-actions">
+        <button id="btnDeleteTx" class="btn-danger">Eliminar</button>
+        <div class="right-actions">
+          <button id="btnCancelEdit" class="btn-secondary">Cancelar</button>
+          <button id="btnSaveEdit" class="btn-primary">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 </body>
 </html>
