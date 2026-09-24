@@ -121,17 +121,19 @@
       </div>
     </section>
 
-    <!-- TELA 3: TECLADO NUMÉRICO E LANÇAMENTO -->
+   <!-- TELA 3: TECLADO NUMÉRICO E LANÇAMENTO -->
     <section id="view-teclado" class="view">
       <div class="teclado-header">
-        <button class="btn-pill-date" id="datePickerBtn">Hoje, 24/09/2026</button>
-        <input type="date" id="hiddenDateInput" class="hidden-date-input">
+        <div class="date-picker-wrapper">
+          <span class="btn-pill-date" id="datePickerBtn">Hoje, 24/09/2026</span>
+          <input type="date" id="hiddenDateInput" class="real-date-input">
+        </div>
       </div>
 
       <div class="display-amount" id="displayAmount">R$ 0,00</div>
 
       <div class="input-wrapper">
-        <input type="text" id="inputDescription" class="desc-input" placeholder="Descrição (opcional)" maxlength="40">
+        <input type="text" id="inputDescription" class="desc-input" placeholder="Descrição (opcional)" maxlength="5000">
       </div>
 
       <div class="numpad">
