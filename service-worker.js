@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cofrinho-v3'; // Mude o número sempre que alterar algo
+const CACHE_NAME = 'cofrinho-v4'; // Mude o número sempre que alterar algo
 
 const ASSETS = [
   './',
