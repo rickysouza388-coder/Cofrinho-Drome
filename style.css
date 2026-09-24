@@ -575,3 +575,96 @@ body {
   cursor: pointer;
   z-index: 2;
 }
+
+/* JANELA MODAL DE EDIÇÃO */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.modal-overlay.hidden {
+  display: none !important;
+}
+
+.modal-card {
+  background: #1c1c1e;
+  color: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  border: 1px solid #2c2c2e;
+}
+
+.modal-card h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 1.2rem;
+}
+
+.modal-card label {
+  display: block;
+  font-size: 0.85rem;
+  color: #a0a0a5;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.modal-card input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #3a3a3c;
+  background: #2c2c2e;
+  color: #fff;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.modal-actions button {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.btn-danger {
+  background: #ff453a;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #2c2c2e;
+  color: #a0a0a5;
+}
+
+.btn-primary {
+  background: #30d158;
+  color: #000;
+}
+
+.right-actions {
+  display: flex;
+  gap: 8px;
+}
