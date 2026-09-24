@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cofrinho-v1';
+const CACHE_NAME = 'cofrinho-v2';
 const ASSETS = [
   './index.html',
   './style.css',
