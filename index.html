@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>Cofrinho — Controle Financeiro</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- HEADER FIXO -->
+  <header class="app-header">
+    <div class="brand">
+      <div class="logo-badge">🐷</div>
+      <span class="brand-title">COFRINHO</span>
+    </div>
+    <div class="streak-badge" id="streakBadge">
+      🔥 <span id="streakDays">0</span> dias
+    </div>
+  </header>
+
+  <!-- CONTAINER DE TELAS -->
+  <main class="app-content">
+
+    <!-- TELA 1: INÍCIO / DASHBOARD PRINCIPAL -->
+    <section id="view-inicio" class="view active">
+      <!-- Seletor de Mês -->
+      <div class="month-selector">
+        <button class="icon-btn" id="prevMonthBtn">&lt;</button>
+        <span class="current-month-label" id="currentMonthLabel">Setembro de 2026</span>
+        <button class="icon-btn" id="nextMonthBtn">&gt;</button>
+      </div>
+
+      <!-- Cards de Resumo Superior -->
+      <div class="cards-grid">
+        <div class="card">
+          <span class="card-title">Saldo do mês</span>
+          <div class="card-value green" id="cardSaldoMes">R$ 0,00</div>
+          <span class="card-subtitle">entradas − saídas</span>
+        </div>
+        <div class="card">
+          <span class="card-title">Guardado este mês</span>
+          <div class="card-value orange" id="cardGuardadoMes">R$ 0,00</div>
+          <span class="card-subtitle">no cofrinho</span>
+        </div>
+      </div>
+
+      <!-- Card Cofrinho Acumulado -->
+      <div class="card full-width">
+        <span class="card-title" id="cofrinhoAcumuladoTitle">Cofrinho acumulado (desde Set/2026)</span>
+        <div class="card-value orange-bright" id="cardCofrinhoAcumulado">R$ 0,00</div>
+      </div>
+
+      <!-- Totais por Categoria -->
+      <div class="card full-width category-summary-card">
+        <h3 class="section-title">Por categoria este mês</h3>
+        <ul class="category-list">
+          <li>
+            <div class="cat-info"><span class="dot green"></span> Entrada</div>
+            <span class="cat-value" id="catValEntrada">R$ 0,00</span>
+          </li>
+          <li>
+            <div class="cat-info"><span class="dot yellow"></span> Saída Drome</div>
+            <span class="cat-value" id="catValSaidaDrome">R$ 0,00</span>
+          </li>
+          <li>
+            <div class="cat-info"><span class="dot blue"></span> Saída H/E/C</div>
+            <span class="cat-value" id="catValSaidaHEC">R$ 0,00</span>
+          </li>
+          <li>
+            <div class="cat-info"><span class="dot pink"></span> Contas</div>
+            <span class="cat-value" id="catValContas">R$ 0,00</span>
+          </li>
+          <li>
+            <div class="cat-info"><span class="dot orange"></span> Cofrinho</div>
+            <span class="cat-value" id="catValCofrinho">R$ 0,00</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Últimos Lançamentos -->
+      <div class="recent-section">
+        <h3 class="section-title">Últimos lançamentos</h3>
+        <div id="recentList" class="transactions-list">
+          <div class="empty-state">Seu controle começa aqui.<br>Faça o primeiro lançamento!</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TELA 2: SELEÇÃO DE CATEGORIA -->
+    <section id="view-categoria" class="view">
+      <h2 class="prompt-title">O que você quer lançar?</h2>
+      <div class="categories-grid">
+        <button class="cat-tile bg-green" data-category="Entrada">
+          <span class="tile-icon">💰</span>
+          <span class="tile-label">Entrada</span>
+        </button>
+        <button class="cat-tile bg-yellow" data-category="Saída Drome">
+          <span class="tile-icon">🍔</span>
+          <span class="tile-label">Saída Drome</span>
+        </button>
+        <button class="cat-tile bg-blue" data-category="Saída H/E/C">
+          <span class="tile-icon">🏠</span>
+          <span class="tile-label">Saída H/E/C</span>
+        </button>
+        <button class="cat-tile bg-pink" data-category="Contas">
+          <span class="tile-icon">📄</span>
+          <span class="tile-label">Contas</span>
+        </button>
+        <button class="cat-tile bg-orange full" data-category="Cofrinho">
+          <span class="tile-icon">🐪</span>
+          <span class="tile-label">Cofrinho</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- TELA 3: TECLADO NUMÉRICO E LANÇAMENTO -->
+    <section id="view-teclado" class="view">
+      <div class="teclado-header">
+        <button class="btn-pill-date" id="datePickerBtn">Hoje, 24/09/2026</button>
+        <input type="date" id="hiddenDateInput" class="hidden-date-input">
+      </div>
+
+      <div class="display-amount" id="displayAmount">R$ 0,00</div>
+
+      <div class="input-wrapper">
+        <input type="text" id="inputDescription" class="desc-input" placeholder="Descrição (opcional)" maxlength="40">
+      </div>
+
+      <div class="numpad">
+        <button class="num-btn" data-val="1">1</button>
+        <button class="num-btn" data-val="2">2</button>
+        <button class="num-btn" data-val="3">3</button>
+        <button class="num-btn" data-val="4">4</button>
+        <button class="num-btn" data-val="5">5</button>
+        <button class="num-btn" data-val="6">6</button>
+        <button class="num-btn" data-val="7">7</button>
+        <button class="num-btn" data-val="8">8</button>
+        <button class="num-btn" data-val="9">9</button>
+        <button class="num-btn" data-val=",">,</button>
+        <button class="num-btn" data-val="0">0</button>
+        <button class="num-btn action" id="btnBackspace">⌫</button>
+      </div>
+
+      <button class="btn-submit" id="btnSaveTransaction">Salvar Lançamento</button>
+    </section>
+
+    <!-- TELA 4: HISTÓRICO COMPLETO -->
+    <section id="view-historico" class="view">
+      <h2 class="view-title">📒 Histórico de Lançamentos</h2>
+      <div class="history-controls">
+        <input type="text" id="searchHistory" class="search-input" placeholder="Pesquisar por descrição...">
+        <select id="filterCategory" class="select-input">
+          <option value="ALL">Todas as categorias</option>
+          <option value="Entrada">Entrada</option>
+          <option value="Saída Drome">Saída Drome</option>
+          <option value="Saída H/E/C">Saída H/E/C</option>
+          <option value="Contas">Contas</option>
+          <option value="Cofrinho">Cofrinho</option>
+        </select>
+      </div>
+      <div id="fullHistoryList" class="transactions-list"></div>
+    </section>
+
+    <!-- TELA 5: DASHBOARD E GRÁFICOS -->
+    <section id="view-dashboard" class="view">
+      <h2 class="view-title">📊 Dados e Gráficos</h2>
+      
+      <div class="card full-width">
+        <h3 class="chart-title">🪙 Baú do Cofrinho (Evolução Mensal)</h3>
+        <div id="chartCofrinho" class="bar-chart-container"></div>
+      </div>
+
+      <div class="card full-width">
+        <h3 class="chart-title">🎒 Gastos x Entradas Por Mês</h3>
+        <div id="chartMonthly" class="bar-chart-container"></div>
+      </div>
+
+      <div class="card full-width backup-card">
+        <h3>⚙️ Gerenciamento de Dados</h3>
+        <div class="btn-group">
+          <button class="btn-secondary" id="btnExportJSON">Exportar Backup (JSON)</button>
+          <button class="btn-secondary" id="btnImportJSON">Importar Backup</button>
+          <input type="file" id="importFileInput" accept=".json" style="display: none;">
+          <button class="btn-danger" id="btnResetData">Apagar Todos os Dados</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAVEGAÇÃO INFERIOR -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-target="view-inicio">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-label">Início</span>
+    </button>
+    <button class="nav-item" data-target="view-historico">
+      <span class="nav-icon">📋</span>
+      <span class="nav-label">Histórico</span>
+    </button>
+    <button class="nav-item" data-target="view-dashboard">
+      <span class="nav-icon">🧢</span>
+      <span class="nav-label">Dashboard</span>
+    </button>
+  </nav>
+
+  <!-- BOTÃO FLUTUANTE (FAB) -->
+  <button class="fab-btn" id="fabBtn">+</button>
+
+  <script src="script.js"></script>
+</body>
+</html>
