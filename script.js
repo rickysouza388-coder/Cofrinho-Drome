@@ -1,4 +1,5 @@
 // ESTADO GLOBAL DA APLICAÇÃO
+let currentEditId = null;
 const state = {
   transactions: [],
   currentMonthKey: '', // Formato: YYYY-MM
@@ -278,6 +279,8 @@ function renderRecentTransactions() {
   }
 
   container.innerHTML = recent.map(t => createTxHTML(t)).join('');
+  item.style.cursor = 'pointer';
+item.addEventListener('click', () => openEditModal(tx.id));
 }
 
 function renderHistory() {
@@ -417,3 +420,57 @@ function resetAllData() {
     alert('Todos os dados foram apagados.');
   }
 }
+
+function openEditModal(id) {
+  const tx = state.transactions.find(t => t.id === id);
+  if (!tx) return;
+
+  currentEditId = id;
+  document.getElementById('editDesc').value = tx.description || '';
+  document.getElementById('editAmount').value = tx.amount;
+  document.getElementById('editDate').value = tx.date;
+
+  document.getElementById('modalEdit').classList.remove('hidden');
+}
+
+function closeEditModal() {
+  currentEditId = null;
+  document.getElementById('modalEdit').classList.add('hidden');
+}
+
+document.getElementById('btnSaveEdit').addEventListener('click', () => {
+  if (!currentEditId) return;
+
+  const desc = document.getElementById('editDesc').value;
+  const amount = parseFloat(document.getElementById('editAmount').value);
+  const date = document.getElementById('editDate').value;
+
+  if (isNaN(amount) || amount <= 0 || !date) {
+    alert('Por favor, preencha um valor e uma data válidos.');
+    return;
+  }
+
+  const txIndex = state.transactions.findIndex(t => t.id === currentEditId);
+  if (txIndex !== -1) {
+    state.transactions[txIndex].description = desc;
+    state.transactions[txIndex].amount = amount;
+    state.transactions[txIndex].date = date;
+
+    saveToLocalStorage();
+    renderDashboard(); // Atualiza a tela com os novos dados
+    closeEditModal();
+  }
+});
+
+document.getElementById('btnDeleteTx').addEventListener('click', () => {
+  if (!currentEditId) return;
+
+  if (confirm('Tem a certeza de que deseja eliminar este lançamento?')) {
+    state.transactions = state.transactions.filter(t => t.id !== currentEditId);
+    saveToLocalStorage();
+    renderDashboard(); // Atualiza a tela após apagar
+    closeEditModal();
+  }
+});
+
+document.getElementById('btnCancelEdit').addEventListener('click', closeEditModal);
