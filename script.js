@@ -45,7 +45,14 @@ function initDates() {
 function setLaunchDate(dateObj) {
   state.selectedDateISO = dateObj.toISOString().split('T')[0];
   const [year, month, day] = state.selectedDateISO.split('-');
-  const formatted = `Hoje, ${day}/${month}/${year}`;
+  
+  const todayISO = new Date().toISOString().split('T')[0];
+  let prefix = '';
+  if (state.selectedDateISO === todayISO) {
+    prefix = 'Hoje, ';
+  }
+  
+  const formatted = `${prefix}${day}/${month}/${year}`;
   document.getElementById('datePickerBtn').textContent = formatted;
   document.getElementById('hiddenDateInput').value = state.selectedDateISO;
 }
